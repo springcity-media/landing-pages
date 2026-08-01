@@ -1,0 +1,33 @@
+{
+  "name": "@springcity-media/landing-pages",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": "22.22.2",
+    "npm": "11.4.2"
+  },
+  "packageManager": "npm@11.4.2",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "lint": "eslint . --max-warnings=0",
+    "type-check": "tsc --noEmit",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "15.5.2",
+    "react": "19.1.1",
+    "react-dom": "19.1.1"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "3.3.1",
+    "@tailwindcss/postcss": "4.1.12",
+    "@types/node": "22.18.0",
+    "@types/react": "19.1.12",
+    "@types/react-dom": "19.1.9",
+    "eslint": "9.34.0",
+    "eslint-config-next": "15.5.2",
+    "tailwindcss": "4.1.12",
+    "typescript": "5.9.2"
+  }
+}
