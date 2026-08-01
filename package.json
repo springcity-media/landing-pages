@@ -10,12 +10,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "deploy:preview": "npm run build && firebase hosting:channel:deploy preview --expires 7d",
-    "deploy:production": "npm run build && firebase deploy --only hosting",
-    "hosting:serve": "npm run build && firebase emulators:start --only hosting",
     "lint": "eslint . --max-warnings=0",
-    "type-check": "tsc --noEmit",
-    "start": "firebase emulators:start --only hosting"
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "next": "16.2.12",
