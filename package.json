@@ -11,6 +11,7 @@
     "dev": "next dev",
     "dev:emulators": "firebase emulators:start --only firestore --project demo-landing-pages",
     "seed:firestore": "node scripts/seed-firestore.mjs",
+    "verify:firestore": "firebase emulators:exec --only firestore --project demo-landing-pages 'npm run seed:firestore && node scripts/verify-firestore.mjs'",
     "test:rules": "firebase emulators:exec --only firestore --project demo-landing-pages 'node --test tests/firestore.rules.test.mjs'",
     "test": "vitest run",
     "build": "next build",
@@ -18,7 +19,7 @@
     "type-check": "tsc --noEmit",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "quality": "npm run lint && npm run format:check && npm run type-check && npm test && npm run test:rules && npm run build"
+    "quality": "npm run lint && npm run format:check && npm run type-check && npm test && npm run test:rules && npm run verify:firestore && npm run build"
   },
   "dependencies": {
     "firebase": "12.9.0",
