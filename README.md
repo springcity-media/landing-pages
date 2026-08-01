@@ -52,11 +52,27 @@ variables or Secret Manager, never in `.env.example` or Git.
 ## Checks and production
 
 ```bash
-npm run lint       # ESLint
-npm run type-check # TypeScript without emitting files
-npm run build      # Optimized production build
-npm run test:rules # Firestore rule tests (starts an emulator)
+npm run lint         # ESLint (warnings fail the check)
+npm run format:check # Verify Prettier formatting
+npm run type-check   # TypeScript without emitting files
+npm test             # Starter-route and configuration tests
+npm run test:rules   # Firestore rule tests (starts an emulator)
+npm run build        # Optimized production build
+npm run quality      # Run the complete local quality gate above
 ```
+
+Run `npm run format` to fix formatting failures, then rerun
+`npm run format:check`. If type checking or tests appear to use stale generated
+Next.js files, remove `.next` and run the failed command again. Firestore rule
+tests require Java; confirm `java -version` works and port 8080 is available if
+the emulator does not start. Build failures that name a `NEXT_PUBLIC_*` variable
+mean `.env.local` is missing or incomplete; recopy `.env.example` and replace
+all placeholders.
+
+The pull-request workflow in `.github/workflows/quality.yml` installs the locked
+dependencies and runs every required check independently. A failure in linting,
+formatting, type checking, either test suite, or the production build blocks the
+workflow.
 
 Deploy the version-controlled rules and indexes with
 `npx firebase deploy --only firestore --project <alias>`.

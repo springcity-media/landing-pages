@@ -1,0 +1,5 @@
+.next
+node_modules
+coverage
+.firebase
+package-lock.json
