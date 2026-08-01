@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "freeh2o-landing-pages"
+    "development": "freeh2o-landing-pages-development",
+    "preview": "freeh2o-landing-pages-preview",
+    "production": "freeh2o-landing-pages"
   }
 }
