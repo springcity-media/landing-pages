@@ -13,10 +13,25 @@ With [`nvm`](https://github.com/nvm-sh/nvm) installed, run `nvm install && nvm u
 
 ```bash
 npm install
+cp .env.example .env.local
+# Replace every placeholder in .env.local with the development Firebase Web app values.
 npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000). Changes in `src/` reload automatically.
+
+Configuration is validated when Next.js starts. A missing value or an invalid
+`NEXT_PUBLIC_APP_ENV` (`local`, `preview`, or `production`) stops startup with a
+message naming the value that must be fixed. The typed configuration lives in
+`src/config/environment.ts`; Firebase is initialized once through
+`getFirebaseApp()` in `src/config/firebase.ts`.
+
+The `NEXT_PUBLIC_FIREBASE_*` values are Firebase Web SDK identifiers and are
+necessarily delivered to the browser. Restrict the API key in Google Cloud and
+enforce access through Firebase Security Rules. Values without the
+`NEXT_PUBLIC_` prefix, service-account JSON, private keys, and other server-side
+credentials are secrets: store them in Firebase App Hosting environment
+variables or Secret Manager, never in `.env.example` or Git.
 
 ## Checks and production
 
@@ -44,6 +59,25 @@ the App Hosting section of the Firebase console.
 
 Keep secrets in App Hosting environment variables or Secret Manager. Do not
 commit service-account keys or environment files.
+
+### Project selection
+
+Firebase aliases make the deployment target explicit; there is deliberately no
+`default` alias. Select the matching project for interactive CLI work:
+
+```bash
+npx firebase use development # local integration work
+npx firebase use preview     # test/preview rollouts
+npx firebase use production  # live rollouts
+```
+
+For CI, avoid persisted local selection and pass the alias on every command,
+for example `npx firebase deploy --project preview` or
+`npx firebase deploy --project production`. Preview and production builds must
+set all variables shown in `.env.example`, with `NEXT_PUBLIC_APP_ENV` set to
+`preview` or `production` respectively. Before the first non-production
+deployment, create the development and preview Firebase projects (or replace
+their IDs in `.firebaserc` with the provisioned project IDs).
 
 ## Project structure
 
