@@ -4,7 +4,7 @@ The public landing-page application for Spring City Media campaigns. It uses Nex
 
 ## Prerequisites
 
-- Node.js 22.22.2 (see `.nvmrc`)
+- Node.js 24.18.0 (see `.nvmrc`)
 - npm 11.4.2
 
 With [`nvm`](https://github.com/nvm-sh/nvm) installed, run `nvm install && nvm use` from the project root.
