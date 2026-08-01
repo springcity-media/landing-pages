@@ -11,3 +11,10 @@ test("landing-page route renders an accessible loading state", () => {
   assert.match(markup, /role="status"/);
   assert.match(markup, /Loading landing page/);
 });
+
+test("campaign fallback renders an accessible loading state", () => {
+  const markup = renderToStaticMarkup(<LandingPageContent />);
+
+  assert.match(markup, /role="status"/);
+  assert.match(markup, /Loading landing page/);
+});

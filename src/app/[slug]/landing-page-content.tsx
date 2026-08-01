@@ -3,15 +3,17 @@
 import { useEffect, useState } from "react";
 import { FirestoreContentRepository, type LandingPage } from "@/data/firestore";
 
-export function LandingPageContent({ slug }: { slug: string }) {
+export function LandingPageContent({ slug }: { slug?: string }) {
   const [page, setPage] = useState<LandingPage | null>();
 
   useEffect(() => {
     let active = true;
     const repository = new FirestoreContentRepository();
+    const requestedSlug =
+      slug ?? decodeURIComponent(window.location.pathname.slice(1));
 
     repository
-      .getLandingPageBySlug(slug)
+      .getLandingPageBySlug(requestedSlug)
       .then((result) => {
         if (active) setPage(result);
       })

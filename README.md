@@ -6,6 +6,7 @@ The public landing-page application for Spring City Media campaigns. It uses Nex
 
 - Node.js 24.18.0 (see `.nvmrc`)
 - npm 11.4.2 or any newer npm 11 release
+- Java 21 or newer (required by the Firestore Emulator)
 
 With [`nvm`](https://github.com/nvm-sh/nvm) installed, run `nvm install && nvm use` from the project root.
 
@@ -83,8 +84,9 @@ npm run quality      # Run the complete local quality gate above
 Run `npm run format` to fix formatting failures, then rerun
 `npm run format:check`. If type checking or tests appear to use stale generated
 Next.js files, remove `.next` and run the failed command again. Firestore rule
-tests require Java; confirm `java -version` works and port 8080 is available if
-the emulator does not start. Build failures that name a `NEXT_PUBLIC_*` variable
+tests require Java 21 or newer; confirm `java -version` reports a compatible
+version and port 8080 is available if the emulator does not start. Build
+failures that name a `NEXT_PUBLIC_*` variable
 mean `.env.local` is missing or incomplete; recopy `.env.example` and replace
 all placeholders.
 
@@ -100,7 +102,9 @@ Deploy the version-controlled rules and indexes with
 
 Next.js statically exports the application to `out/`, which is the public
 directory configured in `firebase.json`. The `sample-event` route is generated
-at build time and loads its content from Firestore in the browser.
+at build time. Firebase Hosting rewrites any other unmatched, single-segment
+campaign URL to the exported `/campaign` shell, which reads the requested slug
+from the browser URL and loads its content from Firestore.
 
 To deploy and smoke-test an isolated preview, create `.env.local` with the
 preview project's Firebase Web app values and `NEXT_PUBLIC_APP_ENV=preview`,
@@ -118,6 +122,13 @@ tools should show Firestore requests for the preview project ID, never the
 production project. Preview channels isolate Hosting assets, but use the
 selected project's normal Firestore database; they do not create a temporary
 database.
+
+Alternatively, configure the `preview` GitHub environment with
+`FIREBASE_SERVICE_ACCOUNT` and the five `NEXT_PUBLIC_FIREBASE_*` secrets used by
+`.github/workflows/preview.yml`, then run **Firebase Hosting Preview** manually.
+The service account must have permission to deploy Hosting preview channels in
+`freeh2o-landing-pages-preview`. The workflow runs the complete quality gate
+before deploying the `spm-10` channel.
 
 ### Project selection
 
