@@ -20,6 +20,22 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000). Changes in `src/` reload automatically.
 
+### Local Firestore
+
+Local mode always connects the browser SDK to the Firestore Emulator at
+`127.0.0.1:8080`; it cannot silently fall back to production Firestore. Start
+`npm run dev:emulators` in one terminal. In another terminal, run:
+
+```bash
+FIRESTORE_EMULATOR_HOST=127.0.0.1:8080 npm run seed:firestore
+npm run dev
+```
+
+The Emulator UI is at [http://127.0.0.1:4000](http://127.0.0.1:4000). The seed
+command refuses to run unless `FIRESTORE_EMULATOR_HOST` is set. The typed,
+read-only content boundary is `FirestoreContentRepository` in
+`src/data/firestore.ts`.
+
 Configuration is validated when Next.js starts. A missing value or an invalid
 `NEXT_PUBLIC_APP_ENV` (`local`, `preview`, or `production`) stops startup with a
 message naming the value that must be fixed. The typed configuration lives in
@@ -39,7 +55,11 @@ variables or Secret Manager, never in `.env.example` or Git.
 npm run lint       # ESLint
 npm run type-check # TypeScript without emitting files
 npm run build      # Optimized production build
+npm run test:rules # Firestore rule tests (starts an emulator)
 ```
+
+Deploy the version-controlled rules and indexes with
+`npx firebase deploy --only firestore --project <alias>`.
 
 ## Firebase App Hosting
 
