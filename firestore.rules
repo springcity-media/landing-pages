@@ -1,0 +1,23 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Public landing pages may only consume explicitly published content.
+    match /events/{eventId} {
+      allow get, list: if resource.data.status == "published";
+    }
+
+    match /landingPages/{pageId} {
+      allow get, list: if resource.data.status == "published";
+    }
+
+    match /sponsors/{sponsorId} {
+      allow get, list: if resource.data.status == "published";
+    }
+
+    // All writes and every collection not listed above are denied by default.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
