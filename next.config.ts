@@ -5,9 +5,8 @@ import { getEnvironmentConfig } from "./src/config/environment";
 getEnvironmentConfig();
 
 const nextConfig: NextConfig = {
-  // Firebase App Hosting deploys the Next.js server bundle to Cloud Run.
-  // Generate the standalone artifact consumed by its framework adapter.
-  output: "standalone",
+  // Firebase Hosting preview channels serve the generated static application.
+  output: "export",
   poweredByHeader: false,
   reactStrictMode: true,
 };
