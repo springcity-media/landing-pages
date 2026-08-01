@@ -35,3 +35,4 @@ jobs:
       - run: npm run test:rules
       - run: npm run verify:firestore
       - run: npm run build
+      - run: npm run verify:build-output
