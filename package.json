@@ -18,18 +18,17 @@
     "start": "firebase emulators:start --only hosting"
   },
   "dependencies": {
-    "next": "15.5.2",
+    "next": "16.2.12",
     "react": "19.1.1",
     "react-dom": "19.1.1"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "3.3.1",
     "@tailwindcss/postcss": "4.1.12",
     "@types/node": "24.13.3",
     "@types/react": "19.1.12",
     "@types/react-dom": "19.1.9",
     "eslint": "9.34.0",
-    "eslint-config-next": "15.5.2",
+    "eslint-config-next": "16.2.12",
     "firebase-tools": "15.25.1",
     "tailwindcss": "4.1.12",
     "typescript": "5.9.2"
