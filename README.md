@@ -78,6 +78,7 @@ npm test             # Starter-route and configuration tests
 npm run test:rules   # Firestore rule tests (starts an emulator)
 npm run verify:firestore # Seed and read the local sample through the client SDK
 npm run build        # Optimized production build
+npm run verify:build-output # Confirm the expected Hosting/App Hosting artifact
 npm run quality      # Run the complete local quality gate above
 ```
 
@@ -97,6 +98,18 @@ workflow.
 
 Deploy the version-controlled rules and indexes with
 `npx firebase deploy --only firestore --project <alias>`.
+
+## Firebase App Hosting production
+
+The `freeh2o-landing-pages` production backend deploys through Firebase App
+Hosting. Production and local builds generate Next.js's standalone server bundle
+for the App Hosting adapter. Automatic production rollouts are triggered by the
+backend's configured live branch and can be monitored in the Firebase console.
+
+The build output is selected through `NEXT_PUBLIC_APP_ENV`: `preview` produces
+the static `out/` directory used below, while `local` and `production` produce
+`.next/standalone`. Keep production secrets in App Hosting environment variables
+or Secret Manager; never commit service-account keys or private credentials.
 
 ## Firebase Hosting preview verification
 
