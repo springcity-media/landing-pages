@@ -106,10 +106,11 @@ Hosting. Production and local builds generate Next.js's standalone server bundle
 for the App Hosting adapter. Automatic production rollouts are triggered by the
 backend's configured live branch and can be monitored in the Firebase console.
 
-The build output is selected through `NEXT_PUBLIC_APP_ENV`: `preview` produces
-the static `out/` directory used below, while `local` and `production` produce
-`.next/standalone`. Keep production secrets in App Hosting environment variables
-or Secret Manager; never commit service-account keys or private credentials.
+App Hosting builds default to `.next/standalone`, independently of application
+environment variables. Only the classic Hosting preview workflow sets
+`FIREBASE_STATIC_EXPORT=true` to produce the static `out/` directory used below.
+Keep production secrets in App Hosting environment variables or Secret Manager;
+never commit service-account keys or private credentials.
 
 ## Firebase Hosting preview verification
 
