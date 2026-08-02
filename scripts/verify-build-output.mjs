@@ -1,7 +1,7 @@
 import { access } from "node:fs/promises";
 
-const preview = process.env.NEXT_PUBLIC_APP_ENV === "preview";
-const expectedArtifact = preview
+const staticExport = process.env.FIREBASE_STATIC_EXPORT === "true";
+const expectedArtifact = staticExport
   ? "out/campaign.html"
   : ".next/standalone/.next/routes-manifest.json";
 
@@ -9,7 +9,7 @@ try {
   await access(expectedArtifact);
 } catch {
   throw new Error(
-    `Missing ${expectedArtifact}. The Next.js output mode is incompatible with ${preview ? "Firebase Hosting preview" : "Firebase App Hosting"}.`,
+    `Missing ${expectedArtifact}. The Next.js output mode is incompatible with ${staticExport ? "Firebase Hosting preview" : "Firebase App Hosting"}.`,
   );
 }
 
